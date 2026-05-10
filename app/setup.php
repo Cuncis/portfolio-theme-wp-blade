@@ -29,15 +29,15 @@ add_filter('block_editor_settings_all', function ($settings) {
  * @return void
  */
 add_action('admin_head', function () {
-    if (! get_current_screen()?->is_block_editor()) {
+    if (!get_current_screen()?->is_block_editor()) {
         return;
     }
 
-    if (! Vite::isRunningHot()) {
+    if (!Vite::isRunningHot()) {
         $dependencies = json_decode(Vite::content('editor.deps.json'));
 
         foreach ($dependencies as $dependency) {
-            if (! wp_script_is($dependency)) {
+            if (!wp_script_is($dependency)) {
                 wp_enqueue_script($dependency);
             }
         }
@@ -85,6 +85,7 @@ add_action('after_setup_theme', function () {
      */
     register_nav_menus([
         'primary_navigation' => __('Primary Navigation', 'sage'),
+        'footer_navigation' => __('Footer Navigation', 'sage'),
     ]);
 
     /**
@@ -160,4 +161,14 @@ add_action('widgets_init', function () {
         'name' => __('Footer', 'sage'),
         'id' => 'sidebar-footer',
     ] + $config);
+});
+
+add_action('init', function () {
+    register_post_type('portfolio', [
+        'label' => 'Portfolio',
+        'public' => true,
+        'supports' => ['title', 'editor', 'thumbnail', 'excerpt'],
+        'has_archive' => true,
+        'rewrite' => ['slug' => 'portfolio'],
+    ]);
 });
