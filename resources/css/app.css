@@ -2,3 +2,36 @@
 @source "../../app/**/*.php";
 @source "../**/*.blade.php";
 @source "../**/*.js";
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  a {
+    text-decoration: none !important;
+  }
+
+  ::selection {
+    @apply bg-indigo-600 text-white;
+  }
+
+  /* WordPress menu resets */
+  .nav__menu,
+  .footer-nav__menu {
+    @apply m-0 p-0 list-none flex flex-wrap items-center gap-6;
+  }
+
+  /* WordPress content typography */
+  .prose h1, .prose h2, .prose h3, .prose h4 {
+    @apply text-white;
+  }
+
+  .prose a {
+    @apply text-indigo-400 hover:text-indigo-300;
+  }
+
+  .prose img {
+    @apply rounded-lg;
+  }
+}

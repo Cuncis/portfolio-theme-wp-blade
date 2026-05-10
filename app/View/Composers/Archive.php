@@ -15,7 +15,7 @@ class Archive extends Composer
         return [
             'posts' => $wp_query->posts,
             'totalPages' => $wp_query->max_num_pages,
-            'archiveTitle' => \get_the_archive_title(),
+            'archiveTitle' => \wp_strip_all_tags(\get_the_archive_title()),
         ];
     }
 }
